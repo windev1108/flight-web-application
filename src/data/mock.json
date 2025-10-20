@@ -1,0 +1,193 @@
+[
+  {
+    "id": 1,
+    "segments": [
+      {
+        "flightNumber": "NH887",
+        "airline": "Singapore Airlines",
+        "from": "SIN",
+        "to": "HND",
+        "departDate": "Nov 18",
+        "departTime": "10:45",
+        "arriveTime": "18:25",
+        "duration": "6h40m",
+        "stops": 0,
+        "aircraft": "787-8",
+        "source": "NDC",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 259600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 289600
+          },
+          {
+            "name": "Premium Economy",
+            "price": 299600,
+            "locked": true
+          },
+          {
+            "name": "Business Standard",
+            "price": 359600
+          }
+        ]
+      },
+      {
+        "flightNumber": "SQ/NH6260",
+        "airline": "All Nippon Airways",
+        "from": "HND",
+        "to": "SIN",
+        "departDate": "November 6th",
+        "departTime": "00:25",
+        "arriveDate": "November 7",
+        "arriveTime": "06:55",
+        "duration": "7h30m",
+        "stops": 0,
+        "aircraft": "787-9",
+        "source": "NDC",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 259600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 289600
+          },
+          {
+            "name": "Premium Economy",
+            "price": 299600,
+            "locked": true
+          },
+          {
+            "name": "Business Standard",
+            "price": 359600
+          }
+        ]
+      }
+    ],
+    "totalPrice": 259600
+  },
+  {
+    "id": 2,
+    "segments": [
+      {
+        "flightNumber": "SQ108",
+        "airline": "Singapore Airlines",
+        "from": "SIN",
+        "to": "HND",
+        "departDate": "11/1(Thu)",
+        "departTime": "08:30",
+        "arriveTime": "22:15",
+        "stops": 1,
+        "aircraft": "787-8",
+        "source": "NDC",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 189600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 219600
+          },
+          {
+            "name": "Premium Economy",
+            "price": 239600
+          },
+          {
+            "name": "Business Standard",
+            "price": 299600
+          }
+        ]
+      },
+      {
+        "flightNumber": "NH6529",
+        "airline": "All Nippon Airways",
+        "from": "HND",
+        "to": "SIN",
+        "departDate": "11/6(Thu)",
+        "departTime": "22:55",
+        "arriveDate": "11/7(Fri)",
+        "arriveTime": "05:15",
+        "duration": "7h20m",
+        "stops": 0,
+        "aircraft": "787-9",
+        "source": "INFINI",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 189600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 219600
+          },
+          {
+            "name": "Premium Economy",
+            "price": 239600
+          },
+          {
+            "name": "Business Standard",
+            "price": 299600
+          }
+        ]
+      }
+    ],
+    "totalPrice": 189600
+  },
+  {
+    "id": 3,
+    "segments": [
+      {
+        "flightNumber": "TR111",
+        "airline": "Scoot",
+        "from": "SIN",
+        "to": "HND",
+        "departDate": "11/1(Thu)",
+        "departTime": "13:30",
+        "arriveTime": "22:15",
+        "stops": 2,
+        "aircraft": "A320",
+        "source": "NDC",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 159600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 189600
+          }
+        ]
+      },
+      {
+        "flightNumber": "SQ110",
+        "airline": "Singapore Airlines",
+        "from": "HND",
+        "to": "SIN",
+        "departDate": "11/6(Thu)",
+        "departTime": "22:55",
+        "arriveDate": "11/7(Fri)",
+        "arriveTime": "05:15",
+        "duration": "7h20m",
+        "stops": 0,
+        "aircraft": "787-9",
+        "source": "INFINI",
+        "fareClasses": [
+          {
+            "name": "Economy Value",
+            "price": 159600
+          },
+          {
+            "name": "Economy Standard",
+            "price": 189600
+          }
+        ]
+      }
+    ],
+    "totalPrice": 150000
+  }
+]
