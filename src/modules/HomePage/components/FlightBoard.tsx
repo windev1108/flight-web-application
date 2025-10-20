@@ -2,7 +2,7 @@ import { Box, Typography, Chip } from '@mui/material';
 import { FlightCard, type FlightData } from "./FlightCard";
 import type { FilterState } from '..';
 import mockData from '@/data/mock.json';
-import { useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useState } from 'react';
 import FlightNotFound from './FlightNotFound';
 import FlightSkeleton from './FlightSkeleton';
 
@@ -13,6 +13,8 @@ interface FlightResultsProps {
 export default function FlightBoard({ filters }: FlightResultsProps) {
     const [allFlights, setFlights] = useState<FlightData[]>([]);
     const [loading, setLoading] = useState(true);
+    const deferredFilters = useDeferredValue(filters);
+
 
     // Simulate loading
     useEffect(() => {
@@ -30,20 +32,20 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
             if (segment.source === 'INFINI' && filters.fareSource.infini) return true;
             return false;
         });
-        if (!hasMatchingSource && (filters.fareSource.ndc || filters.fareSource.infini)) return false;
+        if (!hasMatchingSource && (deferredFilters.fareSource.ndc || deferredFilters.fareSource.infini)) return false;
 
-        if (filters.stops.direct || filters.stops.oneStop || filters.stops.twoPlus) {
+        if (deferredFilters.stops.direct || deferredFilters.stops.oneStop || deferredFilters.stops.twoPlus) {
             const hasMatchingStops = flight.segments.some((segment) => {
                 const stops = segment.stops || 0;
-                if (stops === 0 && filters.stops.direct) return true;
-                if (stops === 1 && filters.stops.oneStop) return true;
-                if (stops >= 2 && filters.stops.twoPlus) return true;
+                if (stops === 0 && deferredFilters.stops.direct) return true;
+                if (stops === 1 && deferredFilters.stops.oneStop) return true;
+                if (stops >= 2 && deferredFilters.stops.twoPlus) return true;
                 return false;
             });
             if (!hasMatchingStops) return false;
         }
 
-        if (flight.totalPrice && (flight.totalPrice < filters.priceRange[0] || flight.totalPrice > filters.priceRange[1])) {
+        if (flight.totalPrice && (flight.totalPrice < deferredFilters.priceRange[0] || flight.totalPrice > deferredFilters.priceRange[1])) {
             return false;
         }
         return true;

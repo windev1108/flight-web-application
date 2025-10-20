@@ -67,13 +67,13 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
 
   return (
     <Box sx={{
-      width: 280,
+      maxWidth: 300,
       borderRight: 1,
       borderColor: 'grey.300',
       bgcolor: 'background.paper',
       p: 2,
       overflowY: 'auto',
-      height: '90vh'
+      height: '90vh',
     }}>
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', overflowX: 'hidden', mb: 2, pb: 1, borderBottom: 1, borderColor: 'grey.300' }}>
@@ -83,7 +83,7 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
         </Button>
       </Box>
 
-      {/* 運賃ソース */}
+      {/*Source */}
       <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0, minHeight: 40, '& .MuiAccordionSummary-content': { my: 1 } }}>
           <Typography variant="body2">Source</Typography>
@@ -254,7 +254,7 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
       {/* Conversation (Price) */}
       <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0, minHeight: 40, '& .MuiAccordionSummary-content': { my: 1 } }}>
-          <Typography variant="body2">Conversation</Typography>
+          <Typography variant="body2">Range Price</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ px: 0, pt: 0 }}>
           <Box sx={{ ml: 2 }}>

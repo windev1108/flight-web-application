@@ -79,15 +79,13 @@ const HomePage = () => {
     });
   };
   return (
-    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', bgcolor: 'background.paper', overflow: 'hidden' }}>
-      <Box sx={{ display: 'flex', flex: 1 }}>
-        <Sidebar
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          onReset={handleResetFilters}
-        />
-        <FlightBoard filters={filters} />
-      </Box>
+    <Box sx={{ height: '100vh', display: 'flex', bgcolor: 'background.paper', overflow: 'hidden' }}>
+      <Sidebar
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onReset={handleResetFilters}
+      />
+      <FlightBoard filters={filters} />
     </Box>
   )
 }
