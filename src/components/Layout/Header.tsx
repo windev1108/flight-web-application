@@ -16,7 +16,6 @@ export default function FlightHeader() {
             borderColor: 'grey.300',
             maxWidth: '100%',
             bgcolor: 'grey.50',
-            height: '100px',
             px: 2,
             py: 1.5
         }}>

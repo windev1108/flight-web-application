@@ -119,7 +119,7 @@ export function FlightCard({ flight }: FlightCardProps) {
 
     // Detailed selectable view
     return (
-        <Box sx={{ border: 1, borderColor: 'grey.300', mb: 2, bgcolor: 'background.paper', overflowX: 'auto' }}>
+        <Box sx={{ border: 1, borderColor: 'grey.300', mb: 2, bgcolor: 'background.paper', overflow: 'auto' }}>
             {/* Flight segments with price options */}
             <Box sx={{ display: 'flex' }}>
                 <Box sx={{ borderBottom: showSelectable ? 1 : 0, borderColor: 'grey.200', flex: 1 }}>
@@ -213,9 +213,8 @@ export function FlightCard({ flight }: FlightCardProps) {
                     <Box sx={{
                         display: 'flex',
                         flex: 1,
-                        borderLeft: 1,
+                        border: 1,
                         borderColor: 'grey.200',
-                        overflowX: 'auto'
                     }}>
                         {segments[0].fareClasses.map((fare, fareIndex) => {
                             const isSelected = isFareSelected(0, fareIndex);
@@ -267,7 +266,6 @@ export function FlightCard({ flight }: FlightCardProps) {
                         })}
                     </Box>
                 )}
-
             </Box>
 
             {/* Flight route and codes - only for selectable */}
