@@ -62,11 +62,7 @@ export default function FlightSideBar() {
   return (
     <Box sx={{
       maxWidth: 300,
-      width: {
-        xs: '100%',
-        md: '300px',
-        lg: '300px'
-      },
+      minWidth: 300,
       borderRight: 1,
       borderColor: 'grey.300',
       bgcolor: 'background.paper',
