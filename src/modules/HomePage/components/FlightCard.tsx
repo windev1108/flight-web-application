@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Typography, Button, Chip, Checkbox } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import FlightRoute from './FlightRoute';
@@ -38,10 +39,38 @@ interface FlightCardProps {
     flight: FlightData;
 }
 
+interface SelectedFare {
+    segmentIndex: number;
+    fareIndex: number;
+}
 
 export function FlightCard({ flight }: FlightCardProps) {
     const { segments, isCompact, showSelectable, flightRoute, fareCode, bookingDetails } = flight;
+    const [selectedFares, setSelectedFares] = useState<SelectedFare[]>([]);
 
+    const handleFareSelect = (segmentIndex: number, fareIndex: number) => {
+        setSelectedFares(prev => {
+            // Check if this fare is already selected
+            const existingIndex = prev.findIndex(
+                sf => sf.segmentIndex === segmentIndex && sf.fareIndex === fareIndex
+            );
+
+            if (existingIndex >= 0) {
+                // Unselect if already selected
+                return prev.filter((_, index) => index !== existingIndex);
+            } else {
+                // Select this fare (replace any other fare from the same segment)
+                const filtered = prev.filter(sf => sf.segmentIndex !== segmentIndex);
+                return [...filtered, { segmentIndex, fareIndex }];
+            }
+        });
+    };
+
+    const isFareSelected = (segmentIndex: number, fareIndex: number) => {
+        return selectedFares.some(
+            sf => sf.segmentIndex === segmentIndex && sf.fareIndex === fareIndex
+        );
+    };
 
     // Compact view - for top summary cards
     if (isCompact) {
@@ -189,9 +218,12 @@ export function FlightCard({ flight }: FlightCardProps) {
                         overflowX: 'auto'
                     }}>
                         {segments[0].fareClasses.map((fare, fareIndex) => {
+                            const isSelected = isFareSelected(0, fareIndex);
                             return (
                                 <Button
                                     key={fareIndex}
+                                    variant={isSelected ? "outlined" : "text"}
+                                    onClick={() => handleFareSelect(0, fareIndex)}
                                     sx={{
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -200,10 +232,6 @@ export function FlightCard({ flight }: FlightCardProps) {
                                         px: 2,
                                         py: 1.5,
                                         minWidth: 140,
-                                        ":hover": {
-                                            borderWidth: '2px',
-                                            borderColor: 'blue'
-                                        }
                                     }}
                                 >
                                     {/* Lock icon at top-right when selected */}
@@ -211,8 +239,8 @@ export function FlightCard({ flight }: FlightCardProps) {
                                         <LockIcon
                                             sx={{
                                                 position: 'absolute',
-                                                top: 10,
-                                                right: 10,
+                                                top: 4,
+                                                right: 4,
                                                 fontSize: 24,
                                                 color: 'primary.main'
                                             }}
