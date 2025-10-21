@@ -7,11 +7,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Radio,
-  RadioGroup,
   TextField,
   Slider,
-  Divider,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { FilterSource } from '@/types/common';
@@ -151,7 +148,7 @@ export default function FlightSideBar() {
       </Accordion>
 
       {/* Airline */}
-      <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
+      {/* <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0, minHeight: 40, '& .MuiAccordionSummary-content': { my: 1 } }}>
           <Typography variant="body2">Airline</Typography>
         </AccordionSummary>
@@ -190,10 +187,10 @@ export default function FlightSideBar() {
             </Box>
           </RadioGroup>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       {/* Article name */}
-      <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
+      {/* <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0, minHeight: 40, '& .MuiAccordionSummary-content': { my: 1 } }}>
           <Typography variant="body2">Article name</Typography>
         </AccordionSummary>
@@ -213,10 +210,10 @@ export default function FlightSideBar() {
             FareBasis
           </Typography>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       {/* Reservation class */}
-      <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
+      {/* <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0, minHeight: 40, '& .MuiAccordionSummary-content': { my: 1 } }}>
           <Typography variant="body2">Reservation class</Typography>
         </AccordionSummary>
@@ -232,7 +229,7 @@ export default function FlightSideBar() {
             ))}
           </Box>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
 
       {/* Cabin */}
       <Accordion defaultExpanded disableGutters elevation={0} sx={{ '&:before': { display: 'none' } }}>
