@@ -119,7 +119,7 @@ export function FlightCard({ flight }: FlightCardProps) {
 
     // Detailed selectable view
     return (
-        <Box sx={{ border: 1, borderColor: 'grey.300', mb: 2, bgcolor: 'background.paper' }}>
+        <Box sx={{ border: 1, borderColor: 'grey.300', mb: 2, bgcolor: 'background.paper', overflowX: 'auto' }}>
             {/* Flight segments with price options */}
             <Box sx={{ display: 'flex' }}>
                 <Box sx={{ borderBottom: showSelectable ? 1 : 0, borderColor: 'grey.200', flex: 1 }}>

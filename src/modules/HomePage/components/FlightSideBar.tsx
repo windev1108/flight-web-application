@@ -14,16 +14,13 @@ import {
   Divider,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import type { FilterState } from '@/modules/HomePage';
+import type { FilterSource } from '@/types/common';
+import { useFilterStore } from '@/store/FilterStore';
 
-interface FlightSidebarProps {
-  filters: FilterState;
-  onFilterChange: (filters: Partial<FilterState>) => void;
-  onReset: () => void;
-}
 
-export default function FlightSideBar({ filters, onFilterChange, onReset }: FlightSidebarProps) {
-  const handleFareSourceChange = (key: keyof FilterState['fareSource']) => (event: React.ChangeEvent<HTMLInputElement>) => {
+export default function FlightSideBar() {
+  const { filters, setFilter: onFilterChange, resetFilter: onReset } = useFilterStore()
+  const handleFareSourceChange = (key: keyof FilterSource['fareSource']) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange({
       fareSource: {
         ...filters.fareSource,
@@ -32,7 +29,7 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
     });
   };
 
-  const handleStopsChange = (key: keyof FilterState['stops']) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleStopsChange = (key: keyof FilterSource['stops']) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange({
       stops: {
         ...filters.stops,
@@ -41,7 +38,7 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
     });
   };
 
-  const handleAirportsChange = (key: keyof FilterState['airports']) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAirportsChange = (key: keyof FilterSource['airports']) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange({
       airports: {
         ...filters.airports,
@@ -50,7 +47,7 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
     });
   };
 
-  const handleCabinChange = (key: keyof FilterState['cabins']) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCabinChange = (key: keyof FilterSource['cabins']) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onFilterChange({
       cabins: {
         ...filters.cabins,
@@ -68,12 +65,17 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
   return (
     <Box sx={{
       maxWidth: 300,
+      width: {
+        xs: '100%',
+        md: '300px',
+        lg: '300px'
+      },
       borderRight: 1,
       borderColor: 'grey.300',
       bgcolor: 'background.paper',
       p: 2,
       overflowY: 'auto',
-      height: '90vh',
+      height: '100vh',
     }}>
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', overflowX: 'hidden', mb: 2, pb: 1, borderBottom: 1, borderColor: 'grey.300' }}>
@@ -198,13 +200,13 @@ export default function FlightSideBar({ filters, onFilterChange, onReset }: Flig
         <AccordionDetails sx={{ px: 0, pt: 0 }}>
           <Box sx={{ display: 'flex', gap: 1, ml: 2 }}>
             <TextField
-              placeholder="Search"
+              placeholder="Enter article name"
               size="small"
               fullWidth
-              sx={{ '& .MuiInputBase-root': { height: 32 } }}
+              sx={{ '& .MuiInputBase-root': { height: 32, fontSize: 14 } }}
             />
-            <Button variant="outlined" sx={{ textTransform: 'none' }}>
-              Straighten
+            <Button variant="outlined" sx={{ textTransform: 'none', height: 32 }}>
+              Search
             </Button>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ ml: 2, mt: 1 }}>

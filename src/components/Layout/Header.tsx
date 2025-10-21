@@ -1,62 +1,45 @@
-import { Box, Button, Typography } from '@mui/material';
+import FlightSideBar from '@/modules/HomePage/components/FlightSideBar';
+import { FilterAlt, Menu } from '@mui/icons-material';
+import { Box, Drawer, IconButton, useMediaQuery } from '@mui/material';
+import React from 'react';
+import HeaderContent from './HeaderContent';
 
 export default function FlightHeader() {
-    const tabs = [
-        { name: 'Go to TOP screen', active: true },
-        { name: 'PN search', active: false },
-        { name: 'INFINI/NDC\nComparative search', active: false },
-        { name: 'Money lending screen', active: false },
-        { name: 'FOREST', active: false },
-        { name: 'Mela truss', active: false }
-    ];
+    const isMd = useMediaQuery('(min-width: 768px)');
+    const [openMenu, setOpenMenu] = React.useState(false);
+    const [openFilter, setOpenFilter] = React.useState(false);
+
 
     return (
         <Box sx={{
             borderBottom: 1,
             borderColor: 'grey.300',
+            maxWidth: '100%',
             bgcolor: 'grey.50',
+            height: '100px',
             px: 2,
             py: 1.5
         }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                    {tabs.map((tab, index) => (
-                        <Button
-                            key={index}
-                            variant="outlined"
-                            sx={{
-                                bgcolor: tab.active ? 'success.main' : 'background.paper',
-                                color: tab.active ? 'white' : 'text.primary',
-                                border: 1,
-                                borderColor: 'grey.400',
-                                whiteSpace: 'pre-line',
-                                textTransform: 'none',
-                                minWidth: 80,
-                                px: 2,
-                                py: 1,
-                                fontSize: '0.875rem',
-                                '&:hover': {
-                                    bgcolor: tab.active ? 'success.dark' : 'grey.100',
-                                    borderColor: 'grey.400',
-                                }
-                            }}
-                        >
-                            {tab.name}
-                        </Button>
-                    ))}
-                </Box>
-                <Box sx={{ textAlign: 'right' }}>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                        Login/PCC: IFNxxxxxx/LFQE
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                        Version: x.x.x
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                        Last login: July 23, 2025
-                    </Typography>
-                </Box>
-            </Box>
+            {isMd ? <HeaderContent toggleDrawer={() => setOpenMenu((prev) => !prev)} />
+
+                :
+                <>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <IconButton onClick={() => setOpenFilter(true)}>
+                            <FilterAlt />
+                        </IconButton>
+                        <IconButton onClick={() => setOpenMenu(true)}>
+                            <Menu />
+                        </IconButton>
+                    </Box>
+                    <Drawer open={openFilter} onClose={() => setOpenFilter(false)} sx={{ maxHeight: '100vh' }}  >
+                        <FlightSideBar />
+                    </Drawer>
+                    <Drawer open={openMenu} onClose={() => setOpenMenu(false)} sx={{ maxHeight: '100vh' }}  >
+                        <HeaderContent toggleDrawer={() => setOpenMenu((prev) => !prev)} />
+                    </Drawer>
+                </>
+            }
         </Box>
     );
 }

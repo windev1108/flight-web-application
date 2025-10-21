@@ -1,19 +1,20 @@
-import { Box, Typography, Chip } from '@mui/material';
+import { Box, Typography, Chip, Button, ButtonGroup } from '@mui/material';
 import { FlightCard, type FlightData } from "./FlightCard";
-import type { FilterState } from '..';
 import mockData from '@/data/mock.json';
 import { useDeferredValue, useEffect, useState } from 'react';
 import FlightNotFound from './FlightNotFound';
 import FlightSkeleton from './FlightSkeleton';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useFilterStore } from '@/store/FilterStore';
+import { History, Search } from '@mui/icons-material';
 
-interface FlightResultsProps {
-    filters: FilterState;
-}
 
-export default function FlightBoard({ filters }: FlightResultsProps) {
+export default function FlightBoard() {
+    const { filters } = useFilterStore()
     const [allFlights, setFlights] = useState<FlightData[]>([]);
     const [loading, setLoading] = useState(true);
     const deferredFilters = useDeferredValue(filters);
+    const isMd = useMediaQuery('(min-width: 768px)');
 
 
     // Simulate loading
@@ -24,6 +25,15 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
         }, 1500);
         return () => clearTimeout(timer);
     }, []);
+
+    useEffect(() => {
+        if (!allFlights.length) return;
+        setLoading(true);
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [allFlights.length, deferredFilters]);
 
     // Apply filters
     const filteredFlights = allFlights?.filter((flight) => {
@@ -65,10 +75,10 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
 
     return (
         <>
-            <Box sx={{ flex: 1, bgcolor: 'grey.50', display: 'flex', flexDirection: 'column', overflowY: 'auto', height: '90vh' }}>
+            <Box sx={{ flex: 1, bgcolor: 'grey.50', display: 'flex', flexDirection: 'column', overflowY: 'auto', height: '90vh', width: isMd ? 'auto' : '100%' }}>
                 {filteredSeparateFlights?.length > 0 && (
                     <Box sx={{ bgcolor: 'background.paper', borderBottom: 1, borderColor: 'grey.300', p: 2 }}>
-                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2, mb: 2 }}>
                             {/* Regular search summary */}
                             <Box>
                                 <Typography variant="body2" mb={1}>Selected itinerary by regular search</Typography>
@@ -98,7 +108,20 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
                         </Box>
                     </Box>
                 )}
-
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2, px: 2, gap: 1, flexWrap: 'wrap' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                        <ButtonGroup variant="contained" aria-label="Basic button group">
+                            <Button>Search route</Button>
+                            <Button variant='outlined'>Search by address</Button>
+                        </ButtonGroup>
+                        <Button variant='outlined'>Creating a transfer at a connecting station</Button>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Button variant='contained' startIcon={<Search />}>Search again
+                        </Button>
+                        <Button variant='outlined' startIcon={<History />}>Search history</Button>
+                    </Box>
+                </Box>
                 {/* Detailed results */}
                 <Box sx={{ p: 2, flex: 1 }}>
                     {filteredNormalFlights.map((flight) => (
@@ -109,7 +132,7 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
                                 showSelectable: true,
                                 flightRoute: 'SIN-KUL',
                                 fareCode: 'NH887-SQ/NH6260',
-                                bookingDetails: 'Change: Changeable　Refund: Hoàn tiền　Validity period: October 21 23:59\ndeparture: SIN November 18 10:45 TERMINAL 3 arrival: HND November 18 18:25 TERMINAL 2\nFreeketen: 1h30p　Remaining seats: 9+\nEasy to use: NH887　Class: N　Mall: No data　Cabin: エコノミー\nEquipment: BOEING 787-8　Operation career: All Nippon Airways　Number of miles: 1000\nFareBasis: QQS/PQ8　Class: N　Checked baggage/number of pieces: 2 (23KG)　Carry-on baggage/weight: 2\n\nDeparture: HND November 6th 00:25 TERMINAL 2 Arrival: SIN November 7 06:55 TERMINAL 1\nFreeketen: 1h30p Remaining seats: 9+\nEasy to use: SQ/NH6260　Class: N　Mall: No data　Cabin: Economy\nEquipment: BOEING 787-9　Operating career: Singapore Airlines　Number of miles: 1000\nFareBasis: QQS/PQ8　Checked baggage/number of pieces: 2 (23KG)　Carry-on baggage/weight: 2'
+                                bookingDetails: 'Change: Changeable　Refund: Refundable　Period: October 21 23:59\ndeparture: SIN November 18 10:45 TERMINAL 3 arrival: HND November 18 18:25 TERMINAL 2\nFreeketen: 1h30p　Remaining seats: 9+\nEasy to use: NH887　Class: N　Mall: No data　Cabin: エコノミー\nEquipment: BOEING 787-8　Operation career: All Nippon Airways　Number of miles: 1000\nFareBasis: QQS/PQ8　Class: N　Checked baggage/number of pieces: 2 (23KG)　Carry-on baggage/weight: 2\n\nDeparture: HND November 6th 00:25 TERMINAL 2 Arrival: SIN November 7 06:55 TERMINAL 1\nFreeketen: 1h30p Remaining seats: 9+\nEasy to use: SQ/NH6260　Class: N　Mall: No data　Cabin: Economy\nEquipment: BOEING 787-9　Operating career: Singapore Airlines　Number of miles: 1000\nFareBasis: QQS/PQ8　Checked baggage/number of pieces: 2 (23KG)　Carry-on baggage/weight: 2'
                             }}
                         />
                     ))}
@@ -123,7 +146,7 @@ export default function FlightBoard({ filters }: FlightResultsProps) {
                         ))}
                     </Box>
                 </Box>
-            </Box>
+            </Box >
         </>
     );
 }
