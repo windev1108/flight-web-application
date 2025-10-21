@@ -97,7 +97,7 @@ export default function FlightBoard() {
                                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', mb: 1.5 }}>
                                     <Box sx={{ display: 'flex', gap: 0.5 }}>
                                         <Chip label="NDC" color="primary" size="small" />
-                                        <Chip label="INFINI" color="default" size="small" />
+                                        <Chip label="INFINI" color="success" size="small" />
                                     </Box>
                                     <Typography variant="body2" fontWeight={600}>
                                         {`JPY ${filteredSeparateFlights.reduce((min, c) => c.totalPrice! < min.totalPrice! ? c : min).totalPrice?.toLocaleString('en-US')}`}
